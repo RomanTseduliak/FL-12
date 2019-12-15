@@ -1,0 +1,228 @@
+@mixin cover($w, $h, $b: 0, $r: inherit) {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background-color: $specialBg;
+  width: $w;
+  height: $h;
+  bottom: $b;
+  right: $r;
+}
+@mixin logoContent(
+  $fontSize,
+  $marginTop,
+  $marginBottom,
+  $fontWeight: map-get($font-weights, "bold")
+) {
+  font: $fontSize $sectionFone;
+  margin-top: $marginTop;
+  margin-bottom: $marginBottom;
+  font-weight: $fontWeight;
+}
+%pText {
+  font: 0.773em $logoContent;
+  line-height: 1.6em;
+}
+%logo {
+  display: flex;
+  flex-direction: row;
+  padding-top: 1em;
+  img {
+    height: $logoH;
+    padding-right: 0.6em;
+  }
+  span {
+    margin-top: $logoLH;
+    align-self: center;
+    text-transform: none;
+    font-size: 8px;
+  }
+  p {
+    font: 24px $logoContent;
+    display: flex;
+    flex-direction: column;
+    margin-top: $logoM;
+    text-transform: uppercase;
+  }
+}
+@mixin botton() {
+  background-color: $bottonColor;
+  border: none;
+  padding: 10px 33px;
+  font-size: 14px;
+  font-weight: 600;
+  height: 50px;
+  width: 130px;
+  margin-left: 100px;
+  color: $bottonBg;
+  border-radius: 4px;
+}
+@mixin link($fontSize, $fontColor: $sectionFontC) {
+  font: $fontSize $sectionFone;
+  color: $sectionFontC;
+}
+body {
+  margin: 0;
+  background-color: $sectionBg;
+  header {
+    background: $sectionBg $Bgground center/cover no-repeat;
+    border-bottom-right-radius: 35rem 13.5rem;
+    padding-bottom: 8.25em;
+    .header-wrap {
+      padding-left: 9rem;
+      color: $sectionCardBg;
+      .landing-logo {
+        font-weight: map-get($font-weights, "medium");
+        @extend %logo;
+      }
+      .header_heading {
+        @include logoContent(3.3rem, 0.7em, 0.47em);
+        position: relative;
+        z-index: 1;
+        width: 500px;
+        letter-spacing: 1px;
+        line-height: 53px;
+        &::before {
+          @include cover(230px, 38px, 0);
+        }
+      }
+      .header_text {
+        white-space: pre-line;
+        color: $sectionCardBg;
+        @extend %pText;
+      }
+      .header_button {
+        margin-top: 30px;
+        @include botton();
+      }
+      a.login {
+        margin-left: 7.7em;
+        @include link(0.91em, white);
+      }
+    }
+  }
+  main.section {
+    text-align: center;
+    .section_text {
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      font: 2em $sectionFone;
+      font-weight: map-get($font-weights, "medium");
+      color: $sectionCardBg;
+      margin: 28px auto;
+      &::before {
+        @include cover(142px, 40px, 6px, 8px);
+      }
+    }
+    .section_card_wrap {
+      width: 58%;
+      min-width: 600px;
+      max-width: 850px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      @each $number, $cardHeight in $cards-height {
+        .section_card:nth-of-type(#{$number}) {
+          height: $cardHeight;
+          background: $sectionCardBg;
+          display: flex;
+          justify-content: space-between;
+          margin: 0 0 18px 0;
+          padding: 15px 5rem 15px 15px;
+          border-radius: 4px;
+          .section_card_right_container {
+            align-self: center;
+            padding-left: 1rem;
+            width: $cardHeight * map-get($text-width-ratios, #{$number});
+            .section_card_heading {
+              color: white;
+              @include logoContent(
+                1.1rem,
+                1em,
+                1.5em,
+                map-get($font-weights, "bolder")
+              );
+            }
+            .section_card_text {
+              color: $sectionFontC;
+              text-align: justify;
+              @extend %pText;
+            }
+            .section_link {
+              @include link(0.8em);
+            }
+            .section_card_img {
+              align-self: center;
+              border-radius: 4px;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+    .section_banner_text {
+      z-index: -1;
+      text-align: left;
+      margin-top: 0.4rem;
+      margin-bottom: 1.75rem;
+      color: $sectionFontC;
+      @extend %pText;
+    }
+    .section_banner_button {
+      margin: 10px;
+      @include botton();
+    }
+  }
+  .section_banner {
+    position: relative;
+    margin: 5.4rem auto -3.55rem auto;
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 6px;
+    width: 62.5%;
+    background-image: linear-gradient(to right, $footerFrom, $footerTo);
+    .section_banner_heading {
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      color: $sectionCardBg;
+      @include logoContent(
+        1.5rem,
+        0.9em,
+        0.3em,
+        map-get($font-weights, "bolder")
+      );
+      &::before {
+        @include cover(50px, 35px, 0px, 170px);
+      }
+    }
+  }
+  footer {
+    background-color: $sectionCardBg;
+    height: 183px;
+    .footer-wrap {
+      padding-top: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $sectionFontC;
+      .footer_text {
+        font-size: 14px;
+        line-height: 1.5;
+        width: 310px;
+      }
+      .footer-cr {
+        @extend %pText;
+        padding-right: 9rem;
+      }
+      .footer_logo {
+        padding-left: 9rem;
+        font-weight: map-get($font-weights, "medium");
+        @extend %logo;
+      }
+    }
+  }
+}
