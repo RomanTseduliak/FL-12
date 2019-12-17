@@ -1,0 +1,188 @@
+body {
+  max-width: 1980px;
+  margin: auto;
+}
+header nav .logo {
+  font-family: "Livvic", sans-serif;
+  font-size: 1.3rem;
+  margin: 1px 10px 10px 200px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #777;
+}
+header nav .menu {
+  display: flex;
+  padding: 10px 200px 10px 400px;
+  list-style-type: none;
+  justify-content: space-between;
+}
+header nav .menu li a {
+  text-decoration: none;
+  color: #777;
+  border: 1px solid transparent;
+  padding: 3px;
+}
+header nav .menu li a:hover {
+  color: #bfba55;
+}
+@media (min-width: 900px) {
+  header nav {
+    display: flex;
+    align-items: center;
+  }
+  header nav .menu {
+    flex: 1;
+  }
+}
+header .banner {
+  background-image: url(../img/home-bg.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+header .banner {
+  font-family: "Livvic", sans-serif;
+  font-size: 4rem;
+  margin: 0.1rem 0 0.4rem 0;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+header .banner p {
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 3.2rem;
+  text-align: center;
+  text-transform: none;
+  color: #bfba55;
+}
+main {
+  display: flex;
+  margin: 5em 10em 2em 10em;
+  flex-direction: column;
+}
+main .product img {
+  width: 100%;
+  display: block;
+  justify-content: center;
+}
+main .product p {
+  width: 100%;
+  display: block;
+  justify-content: center;
+  margin-top: 6px;
+  color: #777;
+}
+main .comments img {
+  width: 35px;
+  height: 35px;
+  border-radius: 28px;
+  display: block;
+  padding-right: 18px;
+}
+main .comments .commentsIcon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  padding-left: 18px;
+}
+.comments {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-right: 180px;
+  color: #777;
+}
+main .product .product-buttons {
+  display: flex;
+  justify-content: start;
+  color: #777;
+}
+.comments img {
+  width: 2.6rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+.comments-autor {
+  margin-right: 0.7rem;
+}
+.comments-time {
+  margin-right: 0.7rem;
+}
+@media (min-width: 600px) {
+  main .product-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+    padding-bottom: 60px;
+  }
+}
+@media (min-width: 900px) {
+  main .product-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+  }
+}
+.button {
+  display: inline-block;
+  padding: 0.8em 1.2em;
+  border: 0.1em solid #777;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 28px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-weight: 300;
+  color: #777;
+  text-align: center;
+  transition: all 0.2s;
+  background-color: #ffffff;
+}
+.button:hover {
+  color: #ffffff;
+  background-color: #000;
+  cursor: pointer;
+}
+.card-button {
+  border-color: #777;
+  color: #777;
+}
+.card-button:hover {
+  background-color: #000;
+  color: #ffffff;
+}
+@media all and (max-width: 30em) {
+  .button {
+    margin: 0.4em auto;
+  }
+}
+.f {
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 3rem;
+}
+footer .f1 {
+  width: 30rem;
+  padding: 0rem 4rem;
+}
+footer h2 {
+  color: #ffffff;
+  font-size: 2rem;
+}
+footer p {
+  color: #777;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0.6rem 0rem;
+}
+.f2 {
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
