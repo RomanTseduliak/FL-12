@@ -1,67 +1,104 @@
-function Fighter(parametersObj) {
-    let parameters = parametersObj;
-    parameters.totalHP = parameters.hp;
-    parameters.wins = 0;
-    parameters.losses = 0;
+let Fighter = function(achievement) {
+  let Fighter = {
+    Name: achievement.name,
+    damage: achievement.damage,
+    max_hp: 100,
+    current_hp: achievement.hp,
+    strength: achievement.strength,
+    agility: achievement.agility,
+    Wins: 0,
+    Losses: 0
+  };
 
-    return {
-        getName: () => parameters.name,
-        getDamage: () => parameters.damage,
-        getStrength: () => parameters.strength,
-        getAgility: () => parameters.agility,
-        getHealth: () => parameters.hp,
-        heal: (value) => {
-            value + parameters.hp <= parameters.totalHP ?
-            parameters.hp += value :
-            parameters.hp = parameters.totalHP;
-        },
-        dealDamage: (value) => {
-            parameters.hp - value >= 0 ?
-            parameters.hp -= value :
-            parameters.hp = 0;
-        },
-        attack: (fighter) => {
-            const MAX_SUCCESS_LEVEL = 1;
-            const SUCCESS_COEF = 100;
-            let success = MAX_SUCCESS_LEVEL - (parameters.agility + parameters.strength) / SUCCESS_COEF;
-            if (Math.random() <= success) {
-                fighter.dealDamage(parameters.damage);
-                console.log(`${parameters.name} makes ${parameters.damage} damage to ${fighter.getName()}`);
-            } else {
-                console.log(`${parameters.name} attack missed`);
-            }
-        },
-        logCombatHistory: () => console.log(`Name: ${parameters.name}, ` +
-                                            `Wins: ${parameters.wins}, ` +
-                                            `Losses: ${parameters.losses}`),
+  return {
+    getName: () => Fighter.Name,
+    getDamage: () => Fighter.damage,
+    getHealth: () => Fighter.current_hp,
+    getStrength: () => Fighter.strength,
+    getAgility: () => Fighter.agility,
+    logCombatHistory: () =>
+      console.log(
+        `Name: ${Fighter.Name}, ` +
+          `Wins: ${Fighter.Wins},` +
+          `Losses: ${Fighter.Losses}`
+      ),
 
-        addWin: () => parameters.wins++,
-        addLoss: () => parameters.losses++
-    };
-}
-
-function battle(firstFighter, secondFighter) {
-    if (firstFighter.getHealth() === 0 || secondFighter.getHealth() === 0) {
-        firstFighter.getHealth() === 0 ?
-        console.log(`${firstFighter.getName()} is dead and can't fight.`) :
-        console.log(`${secondFighter.getName()} is dead and can't fight.`);
-
+    heal: health => {
+      Fighter.current_hp += health ? 
+      Fighter.current_hp > Fighter.max_hp : Fighter.current_hp = Fighter.max_hp
+    },
+    dealDamage: health => {
+      Fighter.current_hp -= health ? 
+      Fighter.current_hp < 0 : Fighter.current_hp = 0
+    },
+    addWin: () => Fighter.Wins++,
+    addLose: () => Fighter.Losses++,
+    attack: (attacker) => {
+      if (attacker.getHealth() === 0) {
+        console.log(`${attacker.getName()} is dead and can't fight`);
         return;
-    }
-
-    while (firstFighter.getHealth() > 0 && secondFighter.getHealth() > 0) {
-        firstFighter.attack(secondFighter);
-        if (secondFighter.getHealth() > 0) {
-            secondFighter.attack(firstFighter);
-            if (firstFighter.getHealth() === 0) {
-                secondFighter.addWin();
-                firstFighter.addLoss();
-                console.log(`${secondFighter.getName()} has won!`);
-            }
-        } else {
-            firstFighter.addWin();
-            secondFighter.addLoss();
-            console.log(`${firstFighter.getName()} has won!`);
+      }
+      const My_life = 100;
+      let chance = My_life - (attacker.getStrength() + attacker.getAgility());
+      if (chance > getRandomInt(0, My_life)) {
+        attacker.dealDamage(this.getDamage());
+        console.log(
+          `${this.getName()} makes ${this.getDamage()} damage to ${attacker.getName()}`
+        );
+        if (attacker.getHealth() === 0) {
+          console.log(`${this.getName()} has won`);
+          attacker.addLose();
+          attacker.addWin();
+          return;
         }
+      } else {
+        console.log(`${this.getName()} attack missed`);
+      }
     }
+  };
+};
+
+function battle(fighterOne, fighterTwo) {
+   if (fighterOne.getHealth() === 0 || fighterTwo.getHealth() === 0) {
+    fighterOne.getHealth() === 0 ?
+    console.log(`${fighterOne.getName()} is dead and can't fight`) :
+    console.log(`${fighterTwo.getName()} is dead and can't fight`);
+    return;
+  }
+  while (fighterOne.getHealth() !== 0 || fighterTwo.getHealth() !== 0) {
+    fighterOne.attack(fighterTwo);
+    if (fighterTwo.getHealth() > 0) {
+        fighterTwo.attack(fighterOne);
+        if (fighterOne.getHealth() === 0) {
+            fighterTwo.addWin();
+            fighterOne.addLoss();
+            console.log(`${fighterTwo.getName()} has won!`);
+        }
+    } else {
+        fighterOne.addWin();
+        fighterTwo.addLoss();
+        console.log(`${fighterOne.getName()} has won!`);
+    }
+  }
 }
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const fighterOne = new Fighter({
+  name: 'Duncan MacLeod',
+  damage: 25,
+  hp: 100,
+  strength: 20,
+  agility: 25
+});
+const fighterTwo = new Fighter({
+  name: 'Priest',
+  damage: 5,
+  hp: 50,
+  strength: 10,
+  agility: 85
+});
+
+battle(fighterOne, fighterTwo);
